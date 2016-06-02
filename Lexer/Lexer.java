@@ -213,6 +213,16 @@ public class Lexer {
 								error.signal("Illegal literal character" + input[tokenPos-1] );
 							tokenPos++;
 							break;
+						case '\"':
+							token = Symbol.STRING;
+							StringBuffer string = new StringBuffer();
+							while ( input[tokenPos] != '\"' ) {
+								string.append(input[tokenPos]);
+								tokenPos++;
+							}
+							stringValue = string.toString();
+							tokenPos++;
+							break;
 						default :
 							error.signal("Invalid Character: '" + ch + "'");
 					}

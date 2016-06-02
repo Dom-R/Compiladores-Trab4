@@ -49,6 +49,7 @@ public enum Symbol {
       READCHAR("readChar"),
       UNDERLINE("_"),
 	  CHARACTER("'"),
+	  STRING("\""),
 	  RETURN("return");
 
       Symbol(String name) {

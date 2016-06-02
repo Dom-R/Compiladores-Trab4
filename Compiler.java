@@ -48,7 +48,7 @@ public class Compiler {
 	
 	public Function FunctionDecl() {
 		
-		Type type = null;
+		Type type = new VoidType();
 		if( lexer.token != Symbol.VOID) {
 			type = Type();
 			
@@ -77,7 +77,6 @@ public class Compiler {
 					error.signal("Missing ]");
 				lexer.nextToken();
 			}
-		
 		} else {
 			lexer.nextToken();
 		}
@@ -126,10 +125,9 @@ public class Compiler {
 	}
 	
 	private ParamList Formals() {
-		ParamList paramList = null;
+		ParamList paramList = new ParamList();
 		
 		if( lexer.token == Symbol.VOID || lexer.token == Symbol.INT || lexer.token == Symbol.CHAR || lexer.token == Symbol.DOUBLE ) {
-			paramList = new ParamList();
 			paramList.addElement( ParamDecl() );
 			while(lexer.token == Symbol.COMMA) {
 				lexer.nextToken();
@@ -482,10 +480,7 @@ public class Compiler {
 			expr = Expr(true);
 
 			// Verifica tipos
-			String returnType = "null";
-			if(currentFunction.getReturnType() != null) {
-				returnType = currentFunction.getReturnType().getCname();
-			}
+			String returnType = currentFunction.getReturnType().getCname();
 			if( returnType != expr.getType().getCname() ) {
 				error.signal("Wrong returned type");
 			}
@@ -683,6 +678,10 @@ public class Compiler {
 				char character = lexer.getCharValue();
 				lexer.nextToken();
 				return new CharFactor(character);
+			case STRING:
+				String string = lexer.getStringValue();
+				lexer.nextToken();
+				return new StringFactor(string);
 			default:
 				error.signal("Invalid entry");
 		}
@@ -811,7 +810,7 @@ public class Compiler {
         
 		exprList = new  ArrayList<Expr>();
 		
-		 ArrayList<Variable> param_list = function.getParamList().getParamList();
+		ArrayList<Variable> param_list = function.getParamList().getParamList();
 		for( Variable v : param_list ) {
 			
 			if(lexer.token == Symbol.RIGHTPAR) {
