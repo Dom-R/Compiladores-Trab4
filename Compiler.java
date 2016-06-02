@@ -4,6 +4,7 @@ Luan Maia Dias 587737
 */
 import AST.*;
 import Lexer.*;
+import AuxComp.SymbolTable;
 import java.util.*;
 import java.io.*;
 
@@ -12,7 +13,7 @@ public class Compiler {
 	//Program ::= Decl
 	public Program compile( char []input, PrintWriter outError, String nomeArq ) {
 
-        symbolTable = new Hashtable<String, Variable>();
+        symbolTable = new SymbolTable();
         error = new CompilerError(outError, nomeArq);
         lexer = new Lexer(input, error);
         error.setLexer(lexer);
@@ -28,24 +29,165 @@ public class Compiler {
 	//Decl ::= ‘void’ ‘main’ ‘(’ ‘)’ StmtBlock
 	public Decl Decl() {
 
-		// Verifica se o linguagem comeca com void main ()
-        if(lexer.token != Symbol.VOID)
-            error.signal("Missing void");
-		lexer.nextToken();
+		ArrayList<Function> functionList = new ArrayList<Function>();
+	
+		while( lexer.token == Symbol.VOID || lexer.token == Symbol.INT || lexer.token == Symbol.CHAR || lexer.token == Symbol.DOUBLE ) {
+			functionList.add(FunctionDecl());
+		}
+		
+		if(lexer.token != Symbol.EOF) {
+			error.signal("EOF expected");
+		}
+		
+		if( symbolTable.getInGlobal("main") == null ) {
+			error.signal("Missing function main");
+		}
+	
+		return new Decl(functionList);
+	}
+	
+	public Function FunctionDecl() {
+		
+		Type type = null;
+		if( lexer.token != Symbol.VOID) {
+			type = Type();
+			
+			// Verifica se o tipo eh uma array
+			if(lexer.token == Symbol.LEFTBRACKET) {
+				lexer.nextToken();
 
-		if(lexer.token != Symbol.MAIN)
-			error.signal("Missing main");
-		lexer.nextToken();
+				if(lexer.token != Symbol.NUMBER)
+					error.signal("Number expected");
 
-		if(lexer.token != Symbol.LEFTPAR)
+				// Pega tamanho da array
+				int arraySize = lexer.getNumberValue();
+				if(arraySize <= 0)
+					error.signal("Invalid array size");
+
+				// Seta tamanho da array
+				type.setArraySize(arraySize);
+
+				lexer.nextToken();
+
+				// Verifica se foi entrado com um numero nao int
+				if(lexer.token == Symbol.DOT)
+					error.signal("Array size can only be specified by a integer type");
+
+				if(lexer.token != Symbol.RIGHTBRACKET)
+					error.signal("Missing ]");
+				lexer.nextToken();
+			}
+		
+		} else {
+			lexer.nextToken();
+		}
+		
+		if(lexer.token != Symbol.IDENT && lexer.token != Symbol.MAIN) {
+			error.signal("Missing function name");
+		}
+		String funcName = lexer.getStringValue();
+		
+		// Verifica se ja exite uma funcao com esse nome
+		if( symbolTable.getInGlobal(funcName) != null ) {
+			error.signal("Function " + funcName + " has already been declared!");
+		}
+		lexer.nextToken();
+		
+		Function func = new Function(type, funcName);
+		
+		// Seta variavel gloval de funcao para poder acessar ela nos outros metodos
+		currentFunction = func;
+		
+		symbolTable.putInGlobal(funcName, func);
+		
+		if( lexer.token != Symbol.LEFTPAR ) {
 			error.signal("Missing (");
+		}
 		lexer.nextToken();
-
-		if(lexer.token != Symbol.RIGHTPAR)
+		
+		// Verifica se a funcao e a funcao main e se ela nao tem parametros, se tiver da erro
+		if ( funcName.compareTo("main") == 0 && lexer.token != Symbol.RIGHTPAR ) {
+			error.signal("Main must be a parameterless function");
+		}
+		
+		func.setParamList( Formals() );
+		
+		if(lexer.token != Symbol.RIGHTPAR) {
 			error.signal("Missing )");
+		}
 		lexer.nextToken();
+		
+		func.setStatementBlock( StmtBlock() );
+		
+		// Remove as variaveis locais salvas
+		symbolTable.removeLocalIdent();
+		
+		return func;
+	}
+	
+	private ParamList Formals() {
+		ParamList paramList = null;
+		
+		if( lexer.token == Symbol.VOID || lexer.token == Symbol.INT || lexer.token == Symbol.CHAR || lexer.token == Symbol.DOUBLE ) {
+			paramList = new ParamList();
+			paramList.addElement( ParamDecl() );
+			while(lexer.token == Symbol.COMMA) {
+				lexer.nextToken();
+				paramList.addElement( ParamDecl() );
+			}
+		}
+		
+		return paramList;
+	}
+	
+	public Variable ParamDecl() {
 
-		return new Decl(StmtBlock());
+        Type type = Type(); // Pega tipo da variavel
+        int arraySize = 0; // Default 0(Nao eh array). Se valor for maior que 0 eh array
+
+        // Verifica se variavel eh uma array
+        if(lexer.token == Symbol.LEFTBRACKET) {
+            lexer.nextToken();
+
+            if(lexer.token != Symbol.NUMBER)
+                error.signal("Number expected");
+
+            // Pega tamanho da array
+            arraySize = lexer.getNumberValue();
+            if(arraySize <= 0)
+                error.signal("Invalid array size");
+
+			// Seta tamanho da array
+			type.setArraySize(arraySize);
+
+            lexer.nextToken();
+
+            // Verifica se foi entrado com um numero nao int
+            if(lexer.token == Symbol.DOT)
+                error.signal("Array size can only be specified by a integer type");
+
+            if(lexer.token != Symbol.RIGHTBRACKET)
+                error.signal("Missing ]");
+            lexer.nextToken();
+        }
+
+        // Pega o ident da variavel e ve se ela ja nao foi declarada
+        if(lexer.token != Symbol.IDENT)
+            error.signal("Expected identifier");
+
+        String identificador = lexer.getStringValue();
+
+        // Verifica se a variavel ja foi declarada
+        if(symbolTable.get(identificador) != null)
+            error.signal("Variable " + identificador + " has already been declared");
+
+        Variable variable = new Variable(type, identificador);
+
+        symbolTable.putInLocal(identificador, variable);
+
+        lexer.nextToken();
+
+        return variable;
 	}
 
 	//StmtBlock ::= ‘{’ { VariableDecl } { Stmt } ‘}’
@@ -126,7 +268,7 @@ public class Compiler {
 
         Variable variable = new Variable(type, identificador);
 
-        symbolTable.put(identificador, variable);
+        symbolTable.putInLocal(identificador, variable);
 
         lexer.nextToken();
 
@@ -172,6 +314,8 @@ public class Compiler {
 				return BreakStmt(flagWhile);
 			case PRINT:
 				return PrintStmt();
+			case RETURN:
+				return ReturnStmt();
 			default:
                 Expr expr = Expr(false); // Expr aqui nao esta sendo atribuido a algo
                 if(lexer.token != Symbol.SEMICOLON)
@@ -323,6 +467,50 @@ public class Compiler {
 		return new PrintStmt(expr, arrayExpr);
 	}
 
+    private ReturnStatement ReturnStmt() {
+        
+		if(lexer.token != Symbol.RETURN) {
+			error.signal("Missing return");
+		}
+        lexer.nextToken();
+		
+		Expr expr = null;
+		
+		// Verifica se a funcao tem tipo de retorno diferente de void
+		if(lexer.token != Symbol.SEMICOLON) {
+			// Manda flag true pq pode ter outros valores aqui alem de atribuicao
+			expr = Expr(true);
+
+			// Verifica tipos
+			String returnType = "null";
+			if(currentFunction.getReturnType() != null) {
+				returnType = currentFunction.getReturnType().getCname();
+			}
+			if( returnType != expr.getType().getCname() ) {
+				error.signal("Wrong returned type");
+			}
+			// Verificacao de atribuiçao entre ponteiro e variavel simples
+			if( ( currentFunction.getReturnType().getArrayPos() != -1 && expr.getType().getArrayPos() == -1 ) || ( currentFunction.getReturnType().getArrayPos() == -1 && expr.getType().getArrayPos() != -1 ) )
+				error.signal("Wrong returned type");
+		}
+	
+		// semantic analysis
+		// Are we inside a function ?
+        /*if ( currentFunction == null ) 
+          //error.show("return statement inside a procedure");
+        else if ( ! checkAssignment( currentFunction.getReturnType(), 
+                                e.getType() ) )
+            error.show("Return type does not match function type");
+		*/
+		
+		if(lexer.token != Symbol.SEMICOLON) {
+			error.signal("Missing ;");
+		}
+		lexer.nextToken();
+		
+        return new ReturnStatement(expr);
+    }
+	
 	//Expr ::= SimExpr [ RelOp Expr]
 	public Expr Expr(boolean flagExpr) {
 		Expr simexpr;
@@ -486,6 +674,10 @@ public class Compiler {
 				lexer.nextToken();
 				return new ReadCharFactor();
 			case IDENT:
+				// verifica se o ident tem o nome de uma funcao
+				if(symbolTable.getInGlobal(lexer.getStringValue()) != null ) {
+					return Call();
+				}
 				return LValueFactor(flagExpr);
 			case CHARACTER:
 				char character = lexer.getCharValue();
@@ -535,7 +727,7 @@ public class Compiler {
 		lexer.nextToken();
 
 		// Verifica se existe uma variavel com esse valor
-		Variable var = symbolTable.get(ident);
+		Variable var = (Variable) symbolTable.getInLocal(ident);
 		if( var == null)
 			error.signal("Variable not declared");
 
@@ -553,7 +745,7 @@ public class Compiler {
 			if(expr.getType().getCname() != "int")
 				error.signal("Only integer allowed");
 
-			// Como nao sabemos o resultado de expr nesse momento estamos sentando o valor do offset do ponteiro como 1 so para realizar a analise lexica
+			// Como nao sabemos o resultado de expr nesse momento estamos setando o valor do offset do ponteiro como 1 so para realizar a analise lexica
 			var.getType().setArrayPos(1);
 
 			if(lexer.token != Symbol.RIGHTBRACKET)
@@ -565,8 +757,6 @@ public class Compiler {
 				var.getType().setArrayPos(-1);
 			}
 		}
-
-
 
 		return new LValue(var, expr);
 	}
@@ -599,8 +789,67 @@ public class Compiler {
 
 		return new NumberFactor(decimal, fracional);
 	}
+	
+    private Call Call() {
+        ArrayList<Expr> exprList = null;
+        
+		if(lexer.token != Symbol.IDENT) {
+			error.signal("Missing ident");
+		}
+        String funcName = lexer.getStringValue();
+        lexer.nextToken();
+		
+        Function function = (Function) symbolTable.getInGlobal(funcName);
+		if(function == null) {
+			error.signal("Function not declared");
+		}
+		
+        if ( lexer.token != Symbol.LEFTPAR ) {
+          error.signal("Missing (");
+        }
+		lexer.nextToken();
+        
+		exprList = new  ArrayList<Expr>();
+		
+		 ArrayList<Variable> param_list = function.getParamList().getParamList();
+		for( Variable v : param_list ) {
+			
+			if(lexer.token == Symbol.RIGHTPAR) {
+				error.signal("Wrong number of parameters");
+			}
+			
+			Expr expr = Expr(true); // Pode ter outras funcoes que nao é só atribuicao
+			
+			// Verificacao de Tipo
+			if(v.getType().getCname() != expr.getType().getCname())
+				error.signal("Type error in parameter at function call");
+			
+			// Limpa lixo da posicao salva da array nos parametros que se encontram em outra funcao
+			if(v.getArraySize() > 0) {
+				v.getType().setArrayPos(-1); // Seta ela como ponteiro
+			}
 
-    private Hashtable<String, Variable> symbolTable;
+			// Verificacao de atribuiçao entre ponteiro e variavel simples
+			if( ( v.getType().getArrayPos() != -1 && expr.getType().getArrayPos() == -1 ) || ( v.getType().getArrayPos() == -1 && expr.getType().getArrayPos() != -1 ) )
+				error.signal("Type error in parameter at function call");
+			
+			exprList.add(expr);
+			
+			if(lexer.token == Symbol.COMMA) {
+				lexer.nextToken();
+			}
+		}
+		
+		if(lexer.token != Symbol.RIGHTPAR) {
+			error.signal("Missing ) or wrong number of parameters");
+		}
+		lexer.nextToken();
+		
+		return new Call(function, exprList);
+    }
+
+    private SymbolTable symbolTable;
     private Lexer lexer;
     private CompilerError error;
+	private Function currentFunction;
 }

@@ -48,7 +48,8 @@ public enum Symbol {
       READDOUBLE("readDouble"),
       READCHAR("readChar"),
       UNDERLINE("_"),
-	  CHARACTER("'");
+	  CHARACTER("'"),
+	  RETURN("return");
 
       Symbol(String name) {
           this.name = name;

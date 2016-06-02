@@ -38,6 +38,7 @@ public class Lexer {
 		keywordsTable.put( "while", Symbol.WHILE );
 		keywordsTable.put( "void", Symbol.VOID );
 		keywordsTable.put( "main", Symbol.MAIN );
+		keywordsTable.put( "return", Symbol.RETURN );
 	}
 
 	public void nextToken() {
