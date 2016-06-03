@@ -1,0 +1,8 @@
+- String só pode ser utilizada em atribuição ou no print
+- implementar print com string
+- implementação de atribuição entre vetor de char e string verificando o tamanho do vetor com o tamanho da string
+- em chamada de função a ordem e os tipos devem ser idênticas ao protótipo
+- arrumar o genC (também arrumar print)
+- perguntar para a Tiemi se precisa ter return sempre
+- criar função para fazer verificação de tipos (verficação entre tipos normais, vetores e entre vetor de char e string)
+- verificar com a Tiemi sobre o uso de vetores na declaração e no retorno (se é permitido eles terem tamanhos diferentes)
