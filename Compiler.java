@@ -206,6 +206,17 @@ public class Compiler {
 	    while(lexer.token != Symbol.CLOSEBLOCK) {
 			stmt.add(Stmt(false)); // Stmts daqui nao se encontram dentro de um while logo a flagWhile sera false para guardar que os statements nao esta dentro de um while
 		}
+		
+		// Verificacão se há um return na funcao que nao eh void
+		if(currentFunction.getReturnType().getCname() != "void") {
+			Stmt lastStmt = null;
+			for( Stmt currentStmt : stmt ) {
+				lastStmt = currentStmt;
+			}
+			if(!(lastStmt instanceof ReturnStmt)) {
+				error.signal("Function missing return");
+			}
+		}
 
 		// Não pode usar o validarToken no final do programa, pois ele acaba andando de token, oq não deve acontecer
 		if(lexer.token != Symbol.CLOSEBLOCK)
@@ -465,7 +476,7 @@ public class Compiler {
 		return new PrintStmt(expr, arrayExpr);
 	}
 
-    private ReturnStatement ReturnStmt() {
+    private ReturnStmt ReturnStmt() {
         
 		if(lexer.token != Symbol.RETURN) {
 			error.signal("Missing return");
@@ -474,7 +485,17 @@ public class Compiler {
 		
 		Expr expr = null;
 		
-		// Verifica se a funcao tem tipo de retorno diferente de void
+		// Verifica se o return de void retorna algo que nao eh void
+		if(currentFunction.getReturnType().getCname() == "void" && lexer.token != Symbol.SEMICOLON) {
+			error.signal("Wrong returned type");
+		}
+		
+		// Verifica se o return de funcoes nao void retornam void
+		if(currentFunction.getReturnType().getCname() != "void" && lexer.token == Symbol.SEMICOLON) {
+			error.signal("Wrong returned type");
+		}
+		
+		// Verifica se a funcao tem alguma expressao de retorno
 		if(lexer.token != Symbol.SEMICOLON) {
 			// Manda flag true pq pode ter outros valores aqui alem de atribuicao
 			expr = Expr(true);
@@ -484,6 +505,7 @@ public class Compiler {
 			if( returnType != expr.getType().getCname() ) {
 				error.signal("Wrong returned type");
 			}
+			
 			// Verificacao de atribuiçao entre ponteiro e variavel simples
 			if( ( currentFunction.getReturnType().getArrayPos() != -1 && expr.getType().getArrayPos() == -1 ) || ( currentFunction.getReturnType().getArrayPos() == -1 && expr.getType().getArrayPos() != -1 ) )
 				error.signal("Wrong returned type");
@@ -503,7 +525,7 @@ public class Compiler {
 		}
 		lexer.nextToken();
 		
-        return new ReturnStatement(expr);
+        return new ReturnStmt(expr);
     }
 	
 	//Expr ::= SimExpr [ RelOp Expr]

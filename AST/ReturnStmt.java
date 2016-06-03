@@ -2,9 +2,9 @@ package AST;
 
 import java.io.*;
 
-public class ReturnStatement extends Stmt {
+public class ReturnStmt extends Stmt {
     
-    public ReturnStatement( Expr expr ) {
+    public ReturnStmt( Expr expr ) {
         this.expr = expr;
     }
     

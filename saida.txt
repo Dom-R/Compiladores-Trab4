@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-void main() {
 
-   char j[11];
-   printf("%c %s", j[-10], "abcdefghij");
+entrada-exemplo.txt:4:Function missing return
 }

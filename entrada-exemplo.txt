@@ -1,5 +1,8 @@
+int algo() {
+	int k;
+	int j;
+}
+
 void main() {
-	char[11] j;
-	
-	print(j[-10],"abcdefghij");
+	int j;
 }
