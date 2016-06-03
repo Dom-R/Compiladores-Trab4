@@ -701,7 +701,7 @@ public class Compiler {
 			// Verificacao de tipo
 			if(lvalue.getType().getCname() != expr.getType().getCname())
 				error.signal("Type error in assignment");
-
+			
 			// Verificacao de atribuiçao entre ponteiro e variavel simples
 			if( ( lvalue.getType().getArrayPos() != -1 && expr.getType().getArrayPos() == -1 ) || ( lvalue.getType().getArrayPos() == -1 && expr.getType().getArrayPos() != -1 ) )
 				error.signal("Type error in assignment");
@@ -709,6 +709,15 @@ public class Compiler {
 				lvalue.getType().clearArrayPos();
 				expr.getType().clearArrayPos();
 			}
+			
+			// Verificacao de tamanho com string na atribuicao seguindo informacoes dadas pela tiemi.
+			// Segundo ela o tamanho do vetor de arrays deve ser no minimo a quantidade de chars contidos na string + 1 para o \0
+			if(expr instanceof StringFactor) {
+				if(lvalue.getType().getArraySize() <= expr.getType().getArraySize()) {
+					error.signal("Char vector too small for string assignment");
+				}
+			}
+			
 		}
 
 		// Verifica se nao havera uma atribuicao com essa variavel, se nao tiver eh para dar erro
