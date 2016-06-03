@@ -3,5 +3,5 @@
 void main() {
 
    char j[11];
-   j="abcdefghij";
+   printf("%c %s", j[-10], "abcdefghij");
 }

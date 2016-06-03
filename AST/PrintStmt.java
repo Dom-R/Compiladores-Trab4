@@ -25,10 +25,11 @@ public class PrintStmt extends Stmt {
 				pw.out.print("lf");
 				break;
 			case "char":
-				pw.out.print("c");
-				break;
-			case "string":
-				pw.out.print("s");
+				if(expr.getType().getArrayPos() != -1) {
+					pw.out.print("c");
+				} else {
+					pw.out.print("s");
+				}
 				break;
 		}
 		// Printa resto das expressoes que se encontram na arrayExpr
@@ -42,10 +43,11 @@ public class PrintStmt extends Stmt {
 					pw.out.print("lf");
 					break;
 				case "char":
-					pw.out.print("c");
-					break;
-				case "string":
-					pw.out.print("s");
+					if(e.getType().getArrayPos() != -1) {
+						pw.out.print("c");
+					} else {
+						pw.out.print("s");
+					}
 					break;
 			}
 		}

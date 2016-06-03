@@ -1,5 +1,5 @@
 void main() {
 	char[11] j;
 	
-	j := "abcdefghij";
+	print(j[-10],"abcdefghij");
 }
