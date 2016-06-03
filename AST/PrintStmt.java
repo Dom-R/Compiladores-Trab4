@@ -27,8 +27,8 @@ public class PrintStmt extends Stmt {
 			case "char":
 				pw.out.print("c");
 				break;
-			case "string"
-				pw.out.print("s"):
+			case "string":
+				pw.out.print("s");
 				break;
 		}
 		// Printa resto das expressoes que se encontram na arrayExpr
@@ -44,8 +44,8 @@ public class PrintStmt extends Stmt {
 				case "char":
 					pw.out.print("c");
 					break;
-				case "string"
-					pw.out.print("s"):
+				case "string":
+					pw.out.print("s");
 					break;
 			}
 		}
