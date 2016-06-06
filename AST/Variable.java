@@ -30,7 +30,7 @@ public class Variable {
         pw.print(type.getCname() + " " + ident);
         int size = getArraySize();
         if( size > 0 ) {
-            pw.out.print("[" + getArraySize() + "]");
+            pw.out.print("[" + size + "]");
         }
         pw.out.println(";");
     }

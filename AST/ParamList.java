@@ -33,7 +33,10 @@ public class ParamList {
         while ( e.hasNext() ) {
           p = (Variable ) e.next();
           pw.out.print( p.getType().getCname() + " " + p.getName() );
-          
+		  if( p.getType().getArraySize() > 0 ) {
+			pw.out.print( "[" + p.getType().getArraySize() + "]" );
+		  }
+		  
           if ( --size > 0 )
             pw.out.print(", ");
         }

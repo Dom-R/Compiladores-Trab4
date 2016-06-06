@@ -13,11 +13,17 @@ public class Call extends Expr {
     public void genC( PW pw ) {
         pw.print( function.getName() + "(" );
         if ( exprList != null ) {
+			boolean prim = true;
 			for( Expr e : exprList ) {
+				if(!prim) {
+					pw.out.print(", ");
+				} else {
+					prim = false;
+				}
 				e.genC(pw);
 			}
 		}
-        pw.out.println(");");
+        pw.out.print(")");
     }
     
 	public Type getType() {

@@ -31,15 +31,11 @@ public class Function {
     
     public void genC( PW pw ) {
         
-		if(returnType != null)
-			pw.out.print(returnType.getCname() + " " + name + "(");
-		else
-			pw.out.print("void" + " " + name + "(");
+		pw.out.print(returnType.getCname() + " " + name + "(");
         if ( paramList != null ) 
           paramList.genC(pw);
         pw.out.println(") {");
         pw.add();
-        pw.out.println();
         statementBlock.genC(pw);
         pw.sub();
         pw.out.println("}");

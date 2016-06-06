@@ -1,14 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
-int algo(char c) {
-
+char blabla(int asd[1], char c) {
+   char g;
+   char s;
+   g='s';
+   s=g;
+   return s;
+}
+char algo(char c[10]) {
    char asd[10];
-   return 1;
+   int b[1];
+   b[0]=78;
+   asd[3]=   blabla(b, 'g');
+   return asd[2];
 }
 void main() {
-
    char asd[10];
    if(1) {
-      printf("%s", "algo");
+      algo(asd);
+      printf("%s %s %d %c %lf", "algo", asd, 1, 'c', 2.345);
    }
 }
