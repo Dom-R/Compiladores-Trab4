@@ -1,8 +1,11 @@
-int algo() {
-	int k;
-	int j;
+int algo(char[10] c) {
+	char [10] asd;
+	return 1; 
 }
 
 void main() {
-	int j;
+	char[10] asd;
+	if(1) {
+		print("algo");
+	}
 }

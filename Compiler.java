@@ -350,6 +350,11 @@ public class Compiler {
 		lexer.nextToken();
 
 		expr = Expr(true);
+		
+		// Verificao contra string
+		if(expr instanceof StringFactor) {
+			error.signal("String used outside of a assignment");
+		}
 
 		if(lexer.token != Symbol.RIGHTPAR)
 			error.signal("Missing )");
@@ -405,6 +410,11 @@ public class Compiler {
 	    lexer.nextToken ();
 
 		expr = Expr(true);
+		
+		// Verificao contra string
+		if(expr instanceof StringFactor) {
+			error.signal("String used outside of a assignment");
+		}
 
 		if(lexer.token != Symbol.RIGHTPAR)
 			error.signal("Missing )");
@@ -500,6 +510,11 @@ public class Compiler {
 			// Manda flag true pq pode ter outros valores aqui alem de atribuicao
 			expr = Expr(true);
 
+			// Verificao contra string
+			if(expr instanceof StringFactor) {
+				error.signal("String used outside of a assignment");
+			}
+		
 			// Verifica tipos
 			String returnType = currentFunction.getReturnType().getCname();
 			if( returnType != expr.getType().getCname() ) {
@@ -539,10 +554,21 @@ public class Compiler {
 		// Verifica se tem RelOp
 		// RelOp ::= ‘=’ | ‘!=’ | ‘<’ | ‘<=’ | ‘>’ | ‘>=’
 		if(lexer.token == Symbol.ASSIGN || lexer.token == Symbol.NEQ || lexer.token == Symbol.LT || lexer.token == Symbol.LE || lexer.token == Symbol.GT || lexer.token == Symbol.GE ) {
+			
+			// Verificao contra string
+			if(simexpr instanceof StringFactor) {
+				error.signal("String can not be used with this operator");
+			}
+			
 			relOp = lexer.token;
 			lexer.nextToken();
 			expr = Expr(true);
 
+			// Verificao contra string
+			if(expr instanceof StringFactor) {
+				error.signal("String can not be used with this operator");
+			}
+			
 			// Verificao de Tipo
 			if(simexpr.getType().getCname() != expr.getType().getCname() )
 				error.signal("Type error in relation operator");
@@ -577,19 +603,35 @@ public class Compiler {
 
 		//Expr simexpr = new SimExpr(unary, term);
 
-		if(unary != null)
+		if(unary != null) {
+			// Verificao contra string
+			if(term instanceof StringFactor) {
+				error.signal("String can not be used with this operator");
+			}
         	result = new CompositeExpr(unary, term, null, null);
-		else
+		} else {
 			result = term;
+		}
 
 		// Verifica se tem AddOp
 		//AddOp ::= ‘+’ | ‘-’ | ‘||’
 		while(lexer.token == Symbol.PLUS || lexer.token == Symbol.MINUS || lexer.token == Symbol.OR) {
+			
+			// Verificao contra string
+			if(term instanceof StringFactor) {
+				error.signal("String can not be used with this operator");
+			}
+			
 			Symbol addOp = lexer.token;
 			lexer.nextToken(); // AddOp
 
 			Expr term_addOp = Term(true);
 
+			// Verificao contra string
+			if(term_addOp instanceof StringFactor) {
+				error.signal("String can not be used with this operator");
+			}
+			
 			// Verificacao de Tipo
 			if(term.getType().getCname() != term_addOp.getType().getCname())
 				error.signal("Type error in additive operators");
@@ -615,10 +657,21 @@ public class Compiler {
 		// Verifica se tem MulOp
 		//MulOp ::= ‘*’ | ‘/’ | ‘%’ | ‘&&’
 		while(lexer.token == Symbol.MULT || lexer.token == Symbol.DIV || lexer.token == Symbol.REMAINDER || lexer.token == Symbol.AND) {
+			
+			// Verificao contra string
+			if(term instanceof StringFactor) {
+				error.signal("String can not be used with this operator");
+			}
+			
 			Symbol mulOp = lexer.token;
 			lexer.nextToken(); // MulOp
 			Expr factor = Factor(true);
 
+			// Verificao contra string
+			if(factor instanceof StringFactor) {
+				error.signal("String can not be used with this operator");
+			}
+			
 			// Impede o uso de % com double
 			if( factor.getType().getCname() == "double" && lexer.token == Symbol.REMAINDER )
 				error.signal("Invalid use of % with double");
@@ -658,7 +711,14 @@ public class Compiler {
 				return Number();
 			case LEFTPAR:
 				lexer.nextToken();
-				Expr factor = new ExprFactor(Expr(flagExpr));
+				Expr expr = Expr(flagExpr);
+				
+				// Verificao contra string
+				if(expr instanceof StringFactor) {
+					error.signal("String used outside of a assignment");
+				}
+				
+				Expr factor = new ExprFactor(expr);
 				if(lexer.token != Symbol.RIGHTPAR)
 					error.signal("Missing )");
 				lexer.nextToken();
@@ -849,6 +909,11 @@ public class Compiler {
 			}
 			
 			Expr expr = Expr(true); // Pode ter outras funcoes que nao é só atribuicao
+			
+			// Verificao contra string
+			if(expr instanceof StringFactor) {
+				error.signal("String used outside of a assignment");
+			}
 			
 			// Verificacao de Tipo
 			if(v.getType().getCname() != expr.getType().getCname())

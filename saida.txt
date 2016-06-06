@@ -1,3 +1,14 @@
+#include <stdio.h>
+#include <stdlib.h>
+int algo(char c) {
 
-entrada-exemplo.txt:4:Function missing return
+   char asd[10];
+   return 1;
+}
+void main() {
+
+   char asd[10];
+   if(1) {
+      printf("%s", "algo");
+   }
 }
