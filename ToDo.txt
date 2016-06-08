@@ -1,4 +1,4 @@
-- String só pode ser utilizada em atribuição ou no print
+- String só pode ser utilizada em atribuição ou no print OK
 - implementar print com string OK
 - implementação de atribuição entre vetor de char e string verificando o tamanho do vetor com o tamanho da string OK
 - em chamada de função a ordem e os tipos devem ser idênticas ao protótipo OK
@@ -12,3 +12,7 @@ Perguntas para a Tiemi:
 - O compilador em C permite nao colocar return em funcoes que nao retornam void, precisa fazer isso no nosso?
 - Void pode no nosso compilador ter um return com algum valor dentro dele?? Pq em c pode ser feito, só retornando um warning
 - Como deve ser o genC de um print com diveras expressoes diferentes? Deve ser espacado por enter, espaco, etc??
+- Pode ter string com uso de operadores auxiliares na atribuição (+. -. !)
+- Pode ter string dentro de parênteses
+- Verificar se call pode ser usado fora de atribuição, por exemplo chamar um int sem fazer atribuição a uma variável
+- Verificar se o & é necessário no ReadChar, ReadDouble e ReadInteger (vetor e variável simples) (genC)
