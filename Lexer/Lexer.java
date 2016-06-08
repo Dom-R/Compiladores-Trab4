@@ -140,11 +140,6 @@ public class Lexer {
 								token = Symbol.GT;
 							break;
 						case '=' :
-							if ( input[tokenPos] == '=' ) {
-								tokenPos++;
-								token = Symbol.EQ;
-							}
-							else
 								token = Symbol.ASSIGN;
 							break;
 						case '!':
