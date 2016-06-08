@@ -16,3 +16,7 @@ Perguntas para a Tiemi:
 - Pode ter string dentro de parênteses
 - Verificar se call pode ser usado fora de atribuição, por exemplo chamar um int sem fazer atribuição a uma variável
 - Verificar se o & é necessário no ReadChar, ReadDouble e ReadInteger (vetor e variável simples) (genC)
+
+- Novas perguntas:
+- Como funciona o return de funcoes do tipi "int[10] funcao1() {}", precisa retornar obrigatoriamente um vetor com 10 posicoes???
+- Como funciona o readChar/Double/Int com vetor? Ex: int[10] asd; asd := readInt();
