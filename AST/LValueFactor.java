@@ -23,7 +23,13 @@ public class LValueFactor extends Expr {
                 expr.genC(pw);
                 lValue.genC(pw);
                 pw.out.print(")");
-            } else {
+            } else if(expr instanceof StringFactor) { 
+				pw.print("strcpy(");
+				lValue.genC(pw);
+				pw.out.print(", ");
+				expr.genC(pw);
+				pw.out.println(");");
+			} else {
                 pw.print("");
                 lValue.genC(pw);
                 pw.out.print("=");
