@@ -28,7 +28,7 @@ public class LValueFactor extends Expr {
 				lValue.genC(pw);
 				pw.out.print(", ");
 				expr.genC(pw);
-				pw.out.println(");");
+				pw.out.print(")");
 			} else {
                 pw.print("");
                 lValue.genC(pw);
