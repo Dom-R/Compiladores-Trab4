@@ -20,3 +20,4 @@ Perguntas para a Tiemi:
 - Novas perguntas:
 - Como funciona o return de funcoes do tipi "int[10] funcao1() {}", precisa retornar obrigatoriamente um vetor com 10 posicoes???
 - Como funciona o readChar/Double/Int com vetor? Ex: int[10] asd; asd := readInt();
+- Perguntar novamente do return("O return pode ser usado dentro de qualquer função, mas o tipo de expressão retornada deve ser igual ao tipo de retorno com que a função foi declarada.")
