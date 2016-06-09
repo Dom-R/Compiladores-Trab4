@@ -18,6 +18,7 @@ public class Decl {
     public void genC(PW pw) {
         pw.println("#include <stdio.h>");
         pw.println("#include <stdlib.h>");
+        pw.println("#include <string.h>");
 		
         for( Function f : functionList ) {
 			f.genC(pw);
