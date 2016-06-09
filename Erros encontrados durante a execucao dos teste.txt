@@ -1,11 +1,6 @@
-Erro no teste lex 1 por causa do MAIN grande
-Erro no teste lex 10 pq nao verifica se string termina
-Teste sem 17 pode ter uma saida de texto errada(?)
-Erro sem 19 pode ter uma saida de texto errada(?)
-Erro sem 23 saida de erro na linha 19 em vez da linha 6
-Erro sem 24 saida pode ter uma saida de texto errada(?)
-Erro ok 03 pq nao tem i++ e pq o print obrigatoriamente tem um espaco no final(?)
-Erro em ok 04 pq tem um espaco a mais na saida(?)
-Erro em ok 06 pq tem uma atribuicao de double com int(d2 := 50)
-Erro em ok 07 pq tem que colocar espaco entre a saida??
-Erro em ok 08(?)
+Melhorar texto de erro do teste sem 17(?)
+Melhorar texto de erro do teste sem 19(?)
+Texto de erro pode estar incorreto no teste sem 24(?)
+
+No OK 01 o print do double fica 12.500000 so que a saida aparece 12.5
+Como fica a atribuicao de string? precisa incluir o string.h???

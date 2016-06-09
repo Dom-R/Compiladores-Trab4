@@ -211,9 +211,12 @@ public class Lexer {
 						case '\"':
 							token = Symbol.STRING;
 							StringBuffer string = new StringBuffer();
-							while ( input[tokenPos] != '\"' ) {
+							while ( input[tokenPos] != '\"' && input[tokenPos] != '\0' ) {
 								string.append(input[tokenPos]);
 								tokenPos++;
+							}
+							if(input[tokenPos] == '\0') {
+								error.signal("Malformed string");
 							}
 							stringValue = string.toString();
 							tokenPos++;

@@ -51,7 +51,7 @@ public class PrintStmt extends Stmt {
 					break;
 			}
 		}
-		pw.out.print("\", ");
+		pw.out.print("\\n\", ");
 		expr.genC(pw);
 		for( Expr e : arrayExpr ) {
 			pw.out.print(", ");
