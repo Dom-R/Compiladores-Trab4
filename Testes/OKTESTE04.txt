@@ -1,0 +1,13 @@
+/*
+	OKTESTE04: Trabalhando com strings
+	Saida: Esperado: OKTESTE04
+*/
+
+void main() {
+
+	char[10] str;
+	
+	str := "OKTESTE04";
+	
+	print("Esperado: ", str);
+}

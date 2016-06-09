@@ -1,0 +1,13 @@
+/*
+	ERRSEM16: Operador % aplicado a Double.
+	Linha: 12;
+*/
+
+void main () {
+
+	double num1;
+	double num2;
+	double res;
+	
+	res := num1 % num2;
+}

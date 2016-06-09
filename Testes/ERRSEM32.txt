@@ -1,0 +1,10 @@
+/*
+	ERRSEM32: Atribuicao incorreta com string
+	Linha: 9;
+*/
+
+void main() {
+	
+	int[100] vet;
+	vet := "Teste com string";
+}

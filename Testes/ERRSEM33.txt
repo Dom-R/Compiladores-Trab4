@@ -1,0 +1,10 @@
+/*
+	ERRSEM33: String excede limite do vetor
+	Linha: 9;
+*/
+
+void main() {
+	
+	char[5] str;
+	str := "Teste com string";
+}

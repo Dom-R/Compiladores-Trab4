@@ -1,0 +1,17 @@
+/*
+	OKTESTE02: Ifstatement
+	Saida: Par
+*/
+
+void main() {
+
+	int num1;
+	
+	num1 := 1000;
+	
+	if (num1 % 2 = 0) {
+		print("Par");
+	} else {
+		print("Impar");
+	}
+}

@@ -1,0 +1,14 @@
+/*
+	ERRSEM15: Operador ! aplicado a Double. Este comportamento esta indefinido no GCC
+	Linha: 10;
+*/
+
+void main () {
+
+	double real;
+	
+	if (! real) {
+	
+		print(real);
+	}
+}

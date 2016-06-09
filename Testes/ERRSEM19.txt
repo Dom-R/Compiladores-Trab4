@@ -1,0 +1,9 @@
+/*
+	ERRSEM19: Print vazio
+	Linha: 8;
+*/
+
+void main () {
+	
+	print();
+}

@@ -1,0 +1,12 @@
+/*
+	ERRSEM05: Nao deve atribuir vetor a variavel comum
+	Linha: 11;
+*/
+
+void main () {
+
+	int var;
+	int[10] vet;
+	
+	var := vet;
+}

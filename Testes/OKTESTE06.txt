@@ -1,0 +1,37 @@
+/*
+	OKTESTE06: Expressoes relacionais
+	Saida: 1 2 6
+*/
+
+void main() {
+
+	double d1;
+	double d2;
+	
+	d1 := 10.5;
+	d2 := 50.0;
+	
+	if (d1 <= d2) {
+		print(1);
+	}
+	
+	if (d2 >= d1) {
+		print(2);
+	}
+	
+	if (d2 < d1) {
+		print(3);
+	}
+	
+	if (d2 < d1) {
+		print(4);
+	}
+	
+	if (d2 = d1) {
+		print(5);
+	}
+	
+	if (d1 != d2) {
+		print(6);
+	}
+}

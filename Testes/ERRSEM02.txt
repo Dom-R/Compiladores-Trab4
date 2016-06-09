@@ -1,0 +1,10 @@
+/*
+	ERRSEM02: Testa declaracao de vetor sem tamanho
+	Linha: 9;
+*/
+
+void main () {
+	
+	int b;
+	int[] a;
+}

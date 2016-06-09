@@ -1,0 +1,9 @@
+/*
+	ERRLEX04: Caractere invalido em identificador
+	Linha: 8;
+*/
+
+void main () {
+
+	int abcd-efgh;
+}

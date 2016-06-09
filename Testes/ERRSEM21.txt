@@ -1,0 +1,13 @@
+/*
+	ERRSEM21: Return expr diferente do tipo declarado
+	Linha: 8;
+*/
+
+char f() {
+
+	return 0;
+}
+
+void main () {
+	
+}

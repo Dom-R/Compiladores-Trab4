@@ -1,0 +1,18 @@
+/*
+	ERRSEM17: Uso de palavras reservadas incorretamente
+	Linha: 8;
+*/
+
+void main () {
+
+	double while;
+	double void;
+	double main;
+	
+	int print;
+	char break;
+	
+	int readChar;
+	
+	readChar := readChar();
+}

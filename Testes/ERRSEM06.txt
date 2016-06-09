@@ -1,0 +1,11 @@
+/*
+	ERRSEM06: Testa a aceitacao de tipos incorretos para variavel
+	Linha: 10;
+*/
+
+void main () {
+
+	int num;
+
+	num := 'c';
+}

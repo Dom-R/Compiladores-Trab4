@@ -1,0 +1,14 @@
+/*
+	ERRSEM29: Atribuir retorno de funcao void
+	Linha: 13;
+*/
+
+void f1() {
+	
+}
+
+void main() {
+	int a;
+	
+	a := f1();
+}

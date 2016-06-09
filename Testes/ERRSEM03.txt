@@ -1,0 +1,11 @@
+/*
+	ERRSEM03: Testa declaracao de vetor com tamanho negativo
+	Linha: 10;
+*/
+
+void main () {
+	
+	int i;
+	double[10] d;
+	char[-10] c;
+}

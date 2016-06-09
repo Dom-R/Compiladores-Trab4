@@ -1,0 +1,11 @@
+/*
+	ERRSEM04: Atribuicao com tipo incorreto
+	Linha: 10;
+*/
+
+void main () {
+
+	int b;
+	
+	b := 1.0;
+}

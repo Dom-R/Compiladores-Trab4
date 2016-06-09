@@ -1,0 +1,13 @@
+/*
+	ERRSEM26: Chamada de funcao com parametro incorreto
+	Linha: 12;
+*/
+
+void f1(int num1, double d1) {
+	
+}
+
+void main() {
+	
+	f1(20.5, 10);	
+}

@@ -1,0 +1,13 @@
+/*
+	ERRLEX05: Nao deve aceitar operadores invalidos
+	Linha: 12;
+*/
+
+void main () {
+
+	int a;
+	int b;
+	
+	//Correto e a = b
+	if (a == b) {}
+}

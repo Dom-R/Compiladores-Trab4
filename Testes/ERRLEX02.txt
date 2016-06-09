@@ -1,0 +1,10 @@
+/*
+	ERRLEX02: While, uma palavra inexistente na linguagem
+	Linha: 9;
+*/
+
+void main () {
+	
+	int i;
+	While (i < 10) {}
+}

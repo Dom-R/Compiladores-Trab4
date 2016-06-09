@@ -1,0 +1,9 @@
+/*
+	ERRLEX01: Palavras reservadas devem estar em minusculo
+	Linha: 6;
+*/
+
+void MAIN () {
+
+	CHAR c;
+}

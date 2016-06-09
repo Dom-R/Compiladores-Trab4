@@ -1,0 +1,68 @@
+/*
+	OKTESTE08: Uso de funcoes
+	Entrada: 1 2 3 4 5 seguido de 5 4 3 2 1
+	Saida: OKTESTE0 8 : Vetores diferentes
+	No arquivo de teste usado na correcao haverao somente os prints
+	finais.
+*/
+
+void f1() {
+	int i;
+	int tam;
+	int[100] vet1;
+	
+	print("OKTESTE0", '8', ':');
+}
+
+int compara(int[100] vet1, int[100] vet2, int tam) {
+	int i;
+
+	i := 0;
+	while (i < tam) {
+		
+		if (vet1[i] != vet2[i]) {
+			break;
+		}
+		
+		i := i + 1;
+	}
+	
+	return (i = tam);
+}
+
+void main() {	
+	int[10] vet1;
+	int[10] vet2;
+	int tam;
+	int i;
+	
+	f1();
+	
+	tam := 0;
+    while(tam = 0 || tam > 10) {
+    	print("Informe o tamanho dos vetores: ");
+        tam := readInteger();
+    }
+
+	print("Leitura do vetor 1\n");
+	i := 0;
+	while(i < tam) {
+		vet1[i] := readInteger();
+		i := i + 1;
+	}
+	
+	print("Leitura do vetor 2\n");
+	i := 0;
+	while(i < tam) {
+		vet2[i] := readInteger();
+		i := i + 1;
+	}
+	
+	if (compara(vet1, vet2, tam)) {
+		print("Vetores iguais\n");
+	} else {
+		print("Vetores diferentes\n");
+	}
+    
+    return ;
+}

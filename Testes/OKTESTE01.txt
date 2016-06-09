@@ -1,0 +1,22 @@
+/*
+	OKTESTE01: Declaracao de variaveis
+	Saida: 1 10 12.5 25
+*/
+
+void main() {
+
+	int num1;
+	double d1;
+	char ch;
+	int[10] vet;
+	
+	num1 := 10;
+	d1 := 12.5;
+	ch := '1';
+	
+	vet[1] := 25;
+	
+	print(ch, num1, d1, vet[1]);
+	
+	return ;
+}

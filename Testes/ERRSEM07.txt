@@ -1,0 +1,10 @@
+/*
+	ERRSEM07: Problema com tipos incompativeis
+	Linha: 9;
+*/
+
+void main () {
+
+	char ch;
+	ch := 10000.25;
+}

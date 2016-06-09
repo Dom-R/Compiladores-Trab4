@@ -1,0 +1,13 @@
+/*
+	ERRSIN01: Falta de nome de funcao
+	Linha: 6;
+*/
+
+int () {
+
+	return 0;
+}
+
+void main() {
+	
+}

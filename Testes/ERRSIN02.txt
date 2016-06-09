@@ -1,0 +1,13 @@
+/*
+	ERRSIN02: Falta declaracao apos a virgula
+	Linha: 6;
+*/
+
+int f1(int num1,) {
+
+	return 0;
+}
+
+void main() {
+	
+}

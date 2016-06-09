@@ -1,0 +1,10 @@
+/*
+	ERRSEM08: Variavel redeclarada
+	Linha: 9;
+*/
+
+void main () {
+
+	int vet;
+	int[10] vet;
+}

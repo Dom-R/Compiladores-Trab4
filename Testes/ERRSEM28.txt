@@ -1,0 +1,13 @@
+/*
+	ERRSEM28: Falta de parametros na chamada de funcao
+	Linha: 12;
+*/
+
+void f1(int num1, int num2) {
+	
+}
+
+void main() {
+	
+	f1(10);	
+}

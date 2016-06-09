@@ -1,0 +1,12 @@
+/*
+	ERRSEM31: Funcao com retorno declarado, mas sem return
+	Linha: 8;
+*/
+
+int f1() {
+	
+}
+
+void main() {
+	
+}

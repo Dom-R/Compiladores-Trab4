@@ -1,0 +1,10 @@
+/*
+	ERRSEM18: Testa expressao na declaracao de vetor
+	Linha: 9;
+*/
+
+void main () {
+	
+	int b;
+	int[10+10] a;
+}

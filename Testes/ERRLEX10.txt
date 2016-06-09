@@ -1,0 +1,9 @@
+/*
+	ERRLEX10: Constante string mal formada
+	Linha: 8;
+*/
+
+void main () {
+
+	print("String que nao termina);
+}

@@ -1,0 +1,16 @@
+/*
+	ERRSIN03: Falta identificador apos a virgula
+	Linha: 15;
+*/
+
+int soma(int num1, int num2) {
+
+	return num1+num2;
+}
+
+void main() {
+	
+	int res;
+	
+	res := soma(10,);
+}

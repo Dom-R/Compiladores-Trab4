@@ -1,0 +1,17 @@
+/*
+	ERRSEM24: Funcoes com mesmo nome
+	Linha: 10;
+*/
+
+void f1 () {
+	
+}
+
+int f1 (int a) {
+
+	return a;
+}
+
+void main() {
+	
+}

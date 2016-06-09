@@ -1,0 +1,14 @@
+/*
+	ERRSEM14: Break fora de while
+	Linha: 12;
+*/
+
+void main () {
+
+	int num1;
+	int num2;
+	
+	if (num1 > num2) {
+		break;
+	}
+}

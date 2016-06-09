@@ -1,0 +1,16 @@
+/*
+	ERRSEM30: Expressao e tipo de retorno incompativeis
+	Linha: 15;
+*/
+
+int f1() {
+	
+	return 0;
+}
+
+void main() {
+	
+	double a;
+	
+	a := f1();
+}

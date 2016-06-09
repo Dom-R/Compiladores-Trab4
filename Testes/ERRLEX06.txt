@@ -1,0 +1,11 @@
+/*
+	ERRLEX06: Numero invalido
+	Linha: 10;
+*/
+
+void main () {
+
+	double a;
+	
+	a := 1.o;
+}

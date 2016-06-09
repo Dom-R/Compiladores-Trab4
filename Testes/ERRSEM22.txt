@@ -1,0 +1,8 @@
+/*
+	ERRSEM22: Funcao main incorreta (com parametros)
+	Linha: 6;
+*/
+
+void main (int a) {
+	
+}

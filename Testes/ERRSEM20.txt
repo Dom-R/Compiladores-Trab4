@@ -1,0 +1,9 @@
+/*
+	ERRSEM20: Funcao void retornando expressao
+	Linha: 8;
+*/
+
+void main () {
+	
+	return 0;
+}

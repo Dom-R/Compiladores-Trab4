@@ -1,0 +1,10 @@
+/*
+	ERRLEX08: Char mal formado
+	Linha: 9;
+*/
+
+void main () {
+
+	char c;
+	c := 'abc';
+}

@@ -1,0 +1,12 @@
+/*
+	ERRSEM01: Uso de variavel nao declarada.
+	Linha: 11;
+*/
+
+void main () {
+
+	int a;
+	int b;
+	
+	a := c;
+}

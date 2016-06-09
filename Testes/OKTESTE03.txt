@@ -1,0 +1,25 @@
+/*
+	OKTESTE03: While e break;
+	Saida: 1 2 3 4
+*/
+
+void main() {
+
+	int[5] vet;
+	int i;
+	
+	i := 0;
+	while (i < 5) {
+		vet[i] := i + 1;
+		if (i = 3) {
+			break;
+		}
+		i := i + 1;
+	}
+	
+	i := 0;
+	while (i < 4) {
+		print(vet[i]);
+		i := i + 1;
+	}
+}

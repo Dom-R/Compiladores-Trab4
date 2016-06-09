@@ -1,0 +1,10 @@
+/*
+	ERRLEX03: Nao deve aceitar simbolos invalidos
+	Linha: 8;
+*/
+
+void main () {
+
+	char ab@_10;
+	int inteiro;
+}
