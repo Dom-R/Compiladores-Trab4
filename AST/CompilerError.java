@@ -24,7 +24,7 @@ public class CompilerError {
         out.print(lexer.getCurrentLine());
         if ( out.checkError() )
           System.out.println("Error in signaling an error");
-        throw new RuntimeException(strMessage);
+        throw new RuntimeException("Error at line " + lexer.getLineNumber() + ": " + strMessage + "\n" + lexer.getCurrentLine());
     }
 
     private Lexer lexer;

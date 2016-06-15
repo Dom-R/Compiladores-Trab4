@@ -17,6 +17,4 @@ void main() {
 	vet[1] := 25;
 	
 	print(ch, num1, d1, vet[1]);
-	
-	return ;
 }

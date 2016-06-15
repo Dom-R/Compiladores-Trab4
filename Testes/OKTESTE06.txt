@@ -9,7 +9,7 @@ void main() {
 	double d2;
 	
 	d1 := 10.5;
-	d2 := 50.0;
+	d2 := 50.5;
 	
 	if (d1 <= d2) {
 		print(1);

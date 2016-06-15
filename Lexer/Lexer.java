@@ -228,7 +228,7 @@ public class Lexer {
 			}
 		}
 		lastTokenPos = tokenPos - 1;
-		System.out.println(token.toString());
+		//System.out.println(token.toString());
 	}
 
 	// return the line number of the last token got with getToken()
